@@ -51,4 +51,4 @@ def api_get():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host='192.168.0.102', port=5000)  # Replace with your IP and an open port
+    app.run(host='192.168.60.30', port=5000)  # Replace with your IP and an open port
