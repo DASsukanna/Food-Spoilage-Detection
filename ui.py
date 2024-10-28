@@ -7,7 +7,7 @@ import plotly.express as px
 from datetime import datetime
 import time
 
-#.Streamlit dashboard setup
+# Streamlit dashboard setup
 st.title("Real-time Sensor Data Dashboard")
 st.sidebar.header("API Server Configuration")
 
@@ -56,12 +56,21 @@ def display_realtime_data(data):
     else:
         st.write("No data available to display.")
 
-#Streamlit update loop
-st.sidebar.button("Refresh Data", on_click=lambda: display_realtime_data(fetch_data(api_url)))
+# Initial fetch and display
+data = fetch_data(api_url)
+display_realtime_data(data)
 
-# Auto-refresh every 30 seconds
+# Refresh interval setup
+refresh_interval = 5  # Refresh interval in seconds
+last_refresh = st.empty()
+data_placeholder = st.empty()
+# Update loop
+# Update loop
 while True:
-    data = fetch_data(api_url)
+    time.sleep(refresh_interval)
+    last_refresh.text(f"Last refreshed at {datetime.now().strftime('%H:%M:%S')}")
+    data = fetch_data(api_url)  # Fetch updated data
     with data_placeholder:
-        display_realtime_data(data)
-    time.sleep(30)
+        display_realtime_data(data)  # Pass 'data' to the function
+
+
